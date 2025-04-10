@@ -28,5 +28,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.NCP_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.NCP_SECRET_KEY }}
           AWS_REGION: ${{ secrets.NCP_REGION }}
-          SOURCE_DIR: 'build' # React 기준
+          SOURCE_DIR: 'dist' # React 기준
           AWS_S3_ENDPOINT: ${{ secrets.NCP_ENDPOINT }}
