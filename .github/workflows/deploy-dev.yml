@@ -1,25 +1,31 @@
-name: Deploy to NCP Object Storage
+name: Deploy To Dev NCP
 
 on:
   push:
     branches:
-      - develop # 배포할 브랜치
+      - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: 소스코드 체크아웃
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Node.js 의존성 설치
         run: npm install
 
-      - name: Build project
-        run: npm run build # 리액트일 경우
+      - name: Vite 개발 모드 빌드
+        run: npm run build -- --mode development
 
-      - name: Upload to NCP Object Storage
+      - name: 빌드 폴더 확인 (디버깅용)
+        run: ls -al && ls -al dist
+
+      - name: NCP Object Storage에 배포
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --delete
@@ -27,5 +33,6 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.NCP_BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.NCP_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.NCP_SECRET_KEY }}
-          SOURCE_DIR: 'dist' # React 기준
+          AWS_REGION: 'default' # NCP는 AWS 리전과 달라서 placeholder
+          SOURCE_DIR: 'dist'
           AWS_S3_ENDPOINT: ${{ secrets.NCP_ENDPOINT }}
