@@ -48,4 +48,4 @@ jobs:
 
       - name: Object Storage 새 파일 등록
         run: |
-          s3cmd sync dist/ s3://${{ secrets.DEV_NCP_BUCKET }}/ --exclude '*.DS_Store'  # dist 폴더 업로드
+          s3cmd sync dist/ s3://pre-project/ --exclude
