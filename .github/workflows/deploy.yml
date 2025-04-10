@@ -34,16 +34,13 @@ jobs:
       - name: n3cmd 설치
         run: sudo apt-get update && sudo apt-get install -y s3cmd
 
-            - name: NCP 인증 설정
+      - name: NCP 인증 설정
         run: |
           echo "[default]" > ~/.s3cfg
           echo "access_key = ${{ secrets.NCP_ACCESS_KEY }}" >> ~/.s3cfg
           echo "secret_key = ${{ secrets.NCP_SECRET_KEY }}" >> ~/.s3cfg
           echo "host_base = kr.object.ncloudstorage.com" >> ~/.s3cfg
-          echo "host_bucket = %(bucket)s.kr.object.ncloudstorage.com" >> ~/.s3cfg
-          echo "use_https = True" >> ~/.s3cfg
-          echo "signature_v2 = False" >> ~/.s3cfg
-          echo "bucket_location = kr-standard" >> ~/.s3cfg
+          echo "host_bucket = {bucket}.kr.object.ncloudstorage.com" >> ~/.s3cfg
 
       - name: Object Storage 기존 파일들 삭제
         run: |
