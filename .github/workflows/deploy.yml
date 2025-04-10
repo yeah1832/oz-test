@@ -46,6 +46,6 @@ jobs:
         run: |
           s3cmd del --recursive --force s3://${{ secrets.DEV_NCP_BUCKET }}/
 
-      - name: Object Storage 새 파일 등록 
+      - name: Object Storage 새 파일 등록
         run: |
-          s3cmd sync dist/ s3://pre-project/ --exclude '*.DS_Store'
+          s3cmd sync dist/ s3://pre-project/ --exclude '*.DS_Store' --delete
