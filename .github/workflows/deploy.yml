@@ -48,4 +48,4 @@ jobs:
 
       - name: Object Storage 새 파일 등록
         run: |
-          s3cmd sync dist/ s3://pre-project/ --exclude
+          s3cmd sync dist/ s3://pre-project/ --exclude '*.DS_Store'
